@@ -1,0 +1,30 @@
+inherit_gem:
+  sgcop: rails/rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 3.0.3
+  TargetRailsVersion: 6.1.4.1
+  Exclude:
+    - "vendor/**/*"
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "db/migrate/**/*"
+    - "app/channels/**/*"
+    - "config/**/*"
+    - "config.ru"
+    - "bin/**/*"
+    - "public/**/*"
+    - "tmp/**/*"
+    - "log/**/*"
+    - "Rakefile"
+RSpec/NestedGroups:
+  Max: 4
+Style/RescueStandardError:
+  EnforcedStyle: implicit
+Style/Semicolon:
+  Exclude:
+    - "spec/**/*"
+Layout/DotPosition:
+  EnforcedStyle: trailing
+Metrics/AbcSize:
+  Max: 40

@@ -1,0 +1,46 @@
+- header_color = request.path.include?('/admins') ? 'bg-dark' : 'bg-danger'
+
+%header{ class: "navbar navbar-expand-lg #{header_color}" }
+  .container
+    = link_to 'Cherry Online', root_path, id: 'logo'
+    %nav
+      %ul.collapse.navbar-collapse.nav.navbar-nav.navbar-right.d-flex.flex-row-reverse
+        - if admin_signed_in?
+          %li
+            = button_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'header_link text-warning no_decoration_button'
+          %li
+            = link_to '購入履歴', admins_purchase_records_path, class: 'header_link text-warning'
+          %li
+            = link_to '注文明細', admins_order_details_path, class: 'header_link text-warning'
+          %li
+            = link_to '管理者ページ', admins_root_path, class: 'header_link text-warning'
+        %li
+          - number_of_web_books_in_cart = WebBook.released.where(id: web_book_ids_in_cookie).size
+          .ms-1.text-white
+            = number_of_web_books_in_cart unless number_of_web_books_in_cart.zero?
+        %li
+          = link_to cart_items_path do
+            .header_link
+              %i.fas.fa-shopping-cart
+        - if user_signed_in?
+          %li.nav-item.dropdown
+            %a.nav-link.dropdown-toggle.header_link{ { 'aria-expanded' => 'false' },
+                                                                    { 'data-bs-toggle' => 'dropdown' },
+                                                                    { href: '#' },
+                                                                    { role: 'button' } }
+              = current_user.name
+            %ul.dropdown-menu
+              %li
+                %a.dropdown-item{ href: users_web_books_path } マイページ
+              %li
+                %a.dropdown-item{ href: edit_user_registration_path } 基本設定
+              %li
+                %hr.dropdown-divider/
+              %li
+                .dropdown-item
+                  = button_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'no_decoration_button'
+        - else
+          %li
+            = link_to 'ログイン', new_user_session_path, class: 'header_link'
+          %li
+            = link_to '新規登録', new_user_registration_path, class: 'header_link'

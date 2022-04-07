@@ -1,0 +1,17 @@
+.mt-4
+  .content
+    .row
+      .col-md-10.offset-1
+        .text-start
+          .d-flex
+            = link_to '編集', edit_admins_web_book_page_path(@page.web_book, @page), class: 'btn btn-success'
+            - if @page.deletable?
+              .ms-1
+                = button_to '削除', admins_web_book_page_path(@page.web_book, @page), method: :delete, class: 'btn btn-danger', data: { confirm: '本当に削除しますか?' }
+            .ms-1
+              = link_to 'Webブック詳細', admins_web_book_path(@page.web_book), class: 'btn btn-secondary'
+          .mt-2
+            .h1
+              = @page.title
+            .mt-4
+              = markdown(@page.body).html_safe

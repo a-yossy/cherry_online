@@ -1,0 +1,6 @@
+ja:
+  activerecord:
+    attributes:
+      author:
+        name: 名前
+        availability: 登録

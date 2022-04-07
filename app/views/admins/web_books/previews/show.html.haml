@@ -1,0 +1,12 @@
+.mt-4
+  .content
+    .row
+      = render partial: 'admins/web_books/shared/table_of_contents', locals: { web_book: @web_book, pages: @web_book.pages.rank(:page_order) }
+      .col-md-10
+        .text-start
+          .h1
+            = link_to @web_book.title, admins_web_book_path(@web_book), class: 'text_link'
+          .mt-2
+            = @web_book.principal_author_names
+          .mt-2
+            = image_tag(@web_book.cover_image.variant(resize_and_pad: [210, 280, { background: [240, 240, 240] }]))

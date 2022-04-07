@@ -1,0 +1,21 @@
+マイページ
+
+.mt-4
+  .row
+    - @web_books.each do |web_book|
+      .col-md-4
+        .mb-4
+          .row
+            .col-sm-4
+              = link_to image_tag(web_book.cover_image.variant(resize_and_pad: [120, 160, { background: [240, 240, 240] }])), web_book_path(web_book)
+            .col-sm-8
+              .text-start
+                %big
+                  = link_to web_book.title, web_book_path(web_book), class: 'text_link'
+                %br
+                  = web_book.principal_author_names
+                %br
+                %br
+                  = link_to 'この本を読む', users_web_book_reading_path(web_book), class: 'btn btn-info text-white'
+
+    = paginate @web_books

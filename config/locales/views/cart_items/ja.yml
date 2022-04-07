@@ -1,0 +1,7 @@
+ja:
+  cart_items:
+    create:
+      success: Webブックをカートに追加しました
+      danger: Webブックは既にカートに追加されています
+    destroy:
+      success: Webブックをカートから削除しました

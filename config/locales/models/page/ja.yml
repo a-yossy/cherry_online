@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    attributes:
+      page:
+        title: タイトル
+        body: 本文
+        web_book: Webブック

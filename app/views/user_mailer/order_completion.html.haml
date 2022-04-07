@@ -1,0 +1,39 @@
+= @name
+様
+.div
+  下記の内容でご注文を受付いたしましたので、ご確認ください。
+%br
+%br
+  ＜ご注文内容＞
+.div
+  ======================================================================
+.div
+  ご注文日:
+  = l @order_date_and_time
+.div
+  お支払合計:
+  = number_to_currency @total_amount
+.div
+  ご注文商品:
+- @web_books.each_with_index do |web_book, i|
+  .div
+    != "&nbsp;&nbsp;&nbsp;&nbsp;#{i + 1}.#{web_book.title}&nbsp;&nbsp;&nbsp;&nbsp;#{number_to_currency web_book.price_including_tax}"
+.div
+  ======================================================================
+%br
+%br
+  お支払いは下記口座へお願いします。
+.div
+  【銀行】〇〇銀行
+.div
+  【店名】〇〇
+.div
+  【店番】〇〇
+.div
+  【預金種目】〇〇
+.div
+  【口座番号】〇〇
+.div
+  【名義】〇〇
+.div
+  ※お振込に伴う手数料等はご負担いただきますので、あらかじめご了承下さい。

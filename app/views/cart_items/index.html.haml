@@ -1,0 +1,36 @@
+- if @web_books.empty?
+  カートは空です
+- else
+  .mt-4
+    .row
+      .col-md-10.offset-1
+        - @web_books.each do |web_book|
+          .mb-4
+            .row
+              .col-4.text-end
+                = link_to image_tag(web_book.cover_image.variant(resize_and_pad: [90, 120, { background: [240, 240, 240] }])), web_book_path(web_book)
+              .col-4.text-start
+                - if current_user && already_purchased?(web_book)
+                  .badge.rounded-pill.bg-secondary
+                    購入済み
+                  %br
+                %big
+                  = link_to web_book.title, web_book_path(web_book), class: 'text_link'
+                %br
+                  = web_book.principal_author_names
+                %br
+              .col-4
+                .web_book_price
+                  %big
+                    = number_to_currency web_book.price_including_tax
+                  %br
+                    = button_to '削除', cart_item_path(web_book), method: :delete, class: 'no_decoration_button text-danger'
+        .mb-4
+          .web_book_price
+            %big<
+              合計
+              = number_to_currency @total_price
+            .mt-2
+              = button_to '注文する', users_orders_path, class: 'btn btn-primary'
+        .mb-4
+          = paginate @web_books

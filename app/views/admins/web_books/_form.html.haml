@@ -1,0 +1,50 @@
+.mt-4
+  .content
+    .row
+      .col-md-6.offset-3
+        = form_with model: web_book_form, url: url do |f|
+          = render 'shared/error_messages', object: f.object
+          .mb-3
+            = f.label :title, class: 'form-label'
+            = f.text_field :title, class: 'form-control'
+
+          .mb-3
+            = f.label :release_date, class: 'form-label'
+            = f.date_field :release_date, class: 'form-control'
+
+          .mb-3
+            = f.label :price, class: 'form-label'
+            (税抜価格で入力して下さい)
+            = f.number_field :price, min: 0, class: 'form-control'
+
+          .mb-3
+            = f.label :description, class: 'form-label'
+            = f.text_area :description, class: 'form-control', size: '35x10'
+
+          .mb-3.form-check
+            .text-start
+              = f.label :released, class: 'form-check-label'
+              (ページのないWebブックは公開できません)
+              - if web_book_form.releasable?
+                = f.check_box :released, { class: 'form-check-input' }
+              - else
+                = f.check_box :released, { disabled: true, class: 'form-check-input' }
+                = f.hidden_field :released, value: false
+
+          .mb-3
+            = f.label :cover_image, class: 'form-label'
+            = f.file_field :cover_image, class: 'form-control', direct_upload: true
+
+          - if web_book
+            .mb-3
+              現在の表紙画像
+            .mb-3
+              = image_tag(web_book.cover_image.variant(resize_and_pad: [180, 240, { background: [240, 240, 240] }]))
+
+          = f.fields_for :authors do |i|
+            .mb-3
+              = i.label :name, class: 'form-label'
+              = i.text_field :name, class: 'form-control'
+
+          .mb-3
+            = f.submit yield(:button_text), class: 'btn btn-primary'

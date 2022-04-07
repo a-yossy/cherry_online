@@ -1,0 +1,9 @@
+.col-md-2
+  .d-flex.justify-content-between
+    .ms-4
+      .text-start
+        = link_to '表紙', admins_web_book_preview_path(web_book)
+        - pages.each do |page|
+          .mt-4
+            = link_to page.title, admins_web_book_preview_page_path(web_book, page)
+    .right_line

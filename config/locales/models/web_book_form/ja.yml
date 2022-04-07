@@ -1,0 +1,10 @@
+ja:
+  activemodel:
+    attributes:
+      web_book_form:
+        title: タイトル
+        release_date: 発売日
+        price: 価格
+        description: 商品説明
+        released: 公開フラグ
+        cover_image: 表紙画像

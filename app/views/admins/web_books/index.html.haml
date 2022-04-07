@@ -1,0 +1,29 @@
+管理者ページ
+.mt-2
+  = link_to 'Webブック作成', new_admins_web_book_path, class: 'btn btn-secondary'
+
+.mt-4
+  .row
+    - @web_books.each do |web_book|
+      .col-md-4
+        .mb-4
+          .row
+            .col-sm-4
+              = link_to image_tag(web_book.cover_image.variant(resize_and_pad: [120, 160, { background: [240, 240, 240] }])), admins_web_book_path(web_book)
+            .col-sm-8
+              .text-start
+                - unless web_book.released?
+                  .badge.rounded-pill.bg-danger
+                    未公開
+                  %br
+                %big
+                  = link_to web_book.title, admins_web_book_path(web_book), class: 'text_link'
+                %br
+                  = web_book.principal_author_names
+                #{l web_book.release_date}発売
+                %br
+                %br
+                %big
+                  = number_to_currency web_book.price_including_tax
+
+    = paginate @web_books

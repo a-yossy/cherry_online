@@ -1,0 +1,23 @@
+.mt-4
+  .row
+    .col-md-10.offset-1
+      .text-start
+        .mb-2
+          注文番号:
+          = @order_detail.id
+        %table.table.table-striped
+          %thead
+            %tr
+              .row
+                %th.col-2{ scope: 'col' }  Webブック番号
+                %th.col-8{ scope: 'col' }  タイトル
+                %th.col-2{ scope: 'col' }  金額
+          %tbody
+            - @order_detail.purchase_records.eager_load(:web_book).formerly_ordered.each do |purchase_record|
+              %tr
+                %th{ scope: 'row' }
+                  = purchase_record.web_book.id
+                %td
+                  = link_to purchase_record.web_book.title, admins_web_book_path(purchase_record.web_book), class: 'text_link'
+                %td
+                  = number_to_currency purchase_record.web_book.price_including_tax

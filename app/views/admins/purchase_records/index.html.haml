@@ -1,0 +1,49 @@
+.mt-4
+  .row
+    .col-md-12
+      .ms-4.me-4
+        .text-start
+          %table.table.table-striped
+            %thead
+              %tr
+                %th{ scope: 'col' } Webブックタイトル
+                %th{ scope: 'col' } 注文日時
+                %th{ scope: 'col' } 決済状況
+                %th{ scope: 'col' } 購入金額
+                %th{ scope: 'col' } Eメール
+                %th{ scope: 'col' } 名前
+                %th{ scope: 'col' } 購入日時
+            %tbody
+              - @purchase_records.each do |purchase_record|
+                %tr
+                  %th{ scope: 'row' }
+                    = link_to purchase_record.web_book.title, admins_web_book_path(purchase_record.web_book), class: 'text_link'
+                  %td
+                    = l purchase_record.order_detail.created_at
+                  %td
+                    - if purchase_record.order_detail.paid?
+                      完了
+                    - else
+                      未完了
+                  %td
+                    = number_to_currency purchase_record.web_book.price_including_tax
+                  %td
+                    - if purchase_record.user
+                      = purchase_record.user.email
+                    - else
+                      .text-danger
+                        退会済み
+                  %td
+                    - if purchase_record.user
+                      = purchase_record.user.name
+                    - else
+                      .text-danger
+                        退会済み
+                  %td
+                    - if purchase_record.order_detail.paid?
+                      = l purchase_record.order_detail.updated_at
+                    - else
+                      未購入
+
+        .mt-4
+          = paginate @purchase_records

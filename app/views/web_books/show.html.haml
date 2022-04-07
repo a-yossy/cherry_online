@@ -1,0 +1,43 @@
+.mt-4
+  .content
+    .row
+      .col-md-10.offset-1
+        .text-start
+          .row
+            .col-sm-2
+              = image_tag(@web_book.cover_image.variant(resize_and_pad: [156, 208, { background: [240, 240, 240] }]))
+            .col-sm-10
+              .web_book_title
+                = @web_book.title
+              = @web_book.principal_author_names
+              %br
+              .d-flex<
+                = l @web_book.release_date
+                発売
+                .ms-3
+                  = @web_book.pages.count
+                  ページ
+              %br
+              %big<
+                = number_to_currency @web_book.price_including_tax
+              %br
+              %br
+              - if @web_book.release_date > Time.zone.today
+                = button_to '発売予定', '#', disabled: true, class: 'btn btn-warning'
+              - elsif current_user && already_purchased?(@web_book)
+                = button_to '購入済み', '#', disabled: true, class: 'btn btn-secondary'
+              - elsif already_added_to_cart?(@web_book)
+                = button_to 'カートに追加済み', '#', disabled: true, class: 'btn btn-secondary'
+              - else
+                = button_to 'カートに入れる', cart_items_path, params: { id: @web_book.id }, class: 'btn btn-primary'
+
+        .mt-4
+          .text-start
+            = markdown(@web_book.description).html_safe
+            .mt-4
+              - unless @pages.empty?
+                もくじ
+                %ul
+                  - @pages.each do |page|
+                    %li
+                      = page.title

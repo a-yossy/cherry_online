@@ -1,0 +1,13 @@
+#{@name} 様
+Cherry Onlineをご利用いただきありがとうございます。
+Webブックの購入が完了いたしました。
+下記の購入内容をご確認ください。
+~ "\n"
+＜購入内容＞
+======================================================================
+購入日: #{l @purchase_date_and_time}
+購入金額: #{number_to_currency @total_amount}
+購入商品:
+- @web_books.each_with_index do |web_book, i|
+  ~ "  #{i + 1}.#{web_book.title}  #{number_to_currency web_book.price_including_tax}"
+======================================================================

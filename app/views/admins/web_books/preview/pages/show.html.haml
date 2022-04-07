@@ -1,0 +1,11 @@
+.mt-4
+  .content
+    .row
+      = render partial: 'admins/web_books/shared/table_of_contents', locals: { web_book: @web_book, pages: @web_book.pages.rank(:page_order) }
+      .col-md-10
+        .me-4
+          .text-start
+            .h1
+              = @page.title
+            .mt-4
+              = markdown(@page.body).html_safe

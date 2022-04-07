@@ -1,0 +1,44 @@
+.mt-4
+  .row
+    .col-md-10.offset-1
+      = search_form_for @q, url: admins_order_details_path do |f|
+        決済状況:
+        = f.select :paid_eq, [['完了', true], ['未完了', false]], { include_blank: true }
+
+        = f.submit
+      .text-start
+        %table.table.table-striped#test-order-details-table
+          %thead
+            %tr
+              %th{ scope: 'col' } 注文番号
+              %th{ scope: 'col' } 注文日時
+              %th{ scope: 'col' } 購入者
+              %th{ scope: 'col' } 合計金額
+              %th{ scope: 'col' } 決済状況
+              %th{ scope: 'col' } アクション
+          %tbody
+            - @order_details.each do |order_detail|
+              %tr
+                %th{ scope: 'row' }
+                  = order_detail.id
+                %td
+                  = l order_detail.created_at
+                %td
+                  - if order_detail.user
+                    = order_detail.user.name
+                  - else
+                    .text-danger
+                      退会済み
+                %td
+                  = number_to_currency order_detail.total_amount
+                %td
+                  - if order_detail.paid?
+                    完了
+                  - else
+                    = button_to '決済を完了にする', admins_order_detail_path(order_detail), method: :put, data: { confirm: '本当に変更しますか?' },
+                    class: 'no_decoration_button text-success'
+                %td
+                  = link_to '注文の詳細を表示', admins_order_detail_path(order_detail), class: 'text_link'
+
+      .mt-4
+        = paginate @order_details

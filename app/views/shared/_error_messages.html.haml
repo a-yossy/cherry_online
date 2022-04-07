@@ -1,0 +1,6 @@
+- if object.errors.any?
+  .alert.alert-warning
+    .text-start
+      - object.errors.full_messages.flatten.each do |msg|
+        %li
+          = msg

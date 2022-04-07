@@ -1,0 +1,29 @@
+production:
+  adapter: postgresql
+  database: cherry_online_production
+  pool: 5
+  timeout: 5000
+  encoding: unicode
+  username:
+  password:
+  host: localhost
+
+development:
+  adapter: postgresql
+  database: cherry_online_development
+  pool: 5
+  timeout: 5000
+  encoding: unicode
+  username:
+  password:
+  host: localhost
+
+test:
+  adapter: postgresql
+  database: cherry_online_test
+  pool: 5
+  timeout: 5000
+  encoding: unicode
+  username:
+  password:
+  host: localhost

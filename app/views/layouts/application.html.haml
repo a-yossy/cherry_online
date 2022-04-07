@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %meta{ :content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }/
+    %title CherryOnline
+    %meta{ content: 'width=device-width,initial-scale=1', name: 'viewport' }/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    = render 'layouts/header'
+    .text-center
+      - flash.each do |message_type, message|
+        = content_tag(:div, message, class: "alert alert-#{bootstrap_alert message_type}")
+      = yield

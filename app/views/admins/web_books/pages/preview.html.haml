@@ -1,0 +1,16 @@
+.mt-4
+  .content
+    .row
+      .col-md-10.offset-1
+        .text-start
+          .h1
+            = @preview_page_title
+          .mt-4
+            = markdown(@preview_page_body).html_safe
+
+= form_with model: [:admins, @web_book, @page] do |f|
+  = f.hidden_field :title, value: @preview_page_title
+  = f.hidden_field :body, value: @preview_page_body
+
+  .mb-3
+    = f.submit '戻る', name: 'back', class: 'btn btn-secondary'

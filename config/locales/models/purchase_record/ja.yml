@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      purchase_record:
+        web_book: Webブック
+        user: ユーザー
+        order_detail: 注文明細
+        created_at: 注文日時
+        updated_at: 購入日時

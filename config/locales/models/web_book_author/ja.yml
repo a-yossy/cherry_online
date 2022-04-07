@@ -1,0 +1,6 @@
+ja:
+  activerecord:
+    attributes:
+      web_book_author:
+        web_book: Webブック
+        author: 著者

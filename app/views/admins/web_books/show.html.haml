@@ -1,0 +1,49 @@
+.mt-4
+  .content
+    .row
+      .col-md-10.offset-1
+        .text-start
+          .row
+            .col-sm-2
+              = image_tag(@web_book.cover_image.variant(resize_and_pad: [156, 208, { background: [240, 240, 240] }]))
+            .col-sm-10
+              - unless @web_book.released?
+                .badge.rounded-pill.bg-danger
+                  未公開
+                %br
+              .web_book_title
+                = @web_book.title
+              = @web_book.principal_author_names
+              %br
+              .d-flex<
+                = l @web_book.release_date
+                発売
+                .ms-3
+                  = @web_book.pages.count
+                  ページ
+              %br
+              %big<
+                = number_to_currency @web_book.price_including_tax
+              %br
+              %br
+              .d-flex
+                = link_to '編集', edit_admins_web_book_path(@web_book), class: 'btn btn-success'
+                .ms-1
+                  - if @web_book.deletable?
+                    = button_to '削除', admins_web_book_path(@web_book), method: :delete, class: 'btn btn-danger', data: { confirm: '本当に削除しますか?' }
+                .ms-1
+                  = link_to 'ページ追加', new_admins_web_book_page_path(@web_book), class: 'btn btn-secondary'
+                .ms-1
+                  = link_to 'この本を読む', admins_web_book_preview_path(@web_book), class: 'btn btn-info text-white'
+        .mt-4
+          .text-start
+            = markdown(@web_book.description).html_safe
+            .mt-4
+              - unless @pages.empty?
+                もくじ
+                %ul#pages
+                  - @pages.each do |page|
+                    %li
+                      = link_to page.title, admins_web_book_page_path(@web_book, page), data: { update_url: sort_admins_web_book_page_path(@web_book, page) }
+
+= javascript_pack_tag 'admins/web_books/sort'

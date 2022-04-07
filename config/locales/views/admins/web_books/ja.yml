@@ -1,0 +1,9 @@
+ja:
+  admins:
+    web_books:
+      create:
+        success: 作成しました
+      update:
+        success: 更新しました
+      destroy:
+        success: 削除しました

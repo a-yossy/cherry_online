@@ -1,0 +1,6 @@
+ja:
+  admins:
+    order_details:
+      update:
+        success: 決済状況を完了に変更しました
+        danger: 決済は既に完了しています

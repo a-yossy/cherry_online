@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      order_detail:
+        total_amount: 合計金額
+        paid: 決済状況
+        user: ユーザー
+        created_at: 注文日時
+        updated_at: 購入日時

@@ -1,0 +1,9 @@
+.col-md-2
+  .d-flex.justify-content-between
+    .ms-4
+      .text-start
+        = link_to '表紙', users_web_book_reading_path(web_book)
+        - pages.each do |page|
+          .mt-4
+            = link_to page.title, users_web_book_reading_page_path(web_book, page)
+    .right_line
